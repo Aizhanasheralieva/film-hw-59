@@ -1,26 +1,43 @@
-// import React, { useEffect, useState } from "react";
-//
-// const Jokes = () => {
-//   const [jokes, setJokes] = useState<"" | null>(null);
-//   let url = "https://api.chucknorris.io/jokes/random";
-//
-//   const fetchData = async (url) => {
-//     const response = await fetch(url);
-//
-//     if (response.ok) {
-//       const jokes = await response.json();
-//       return jokes;
-//     }
-//   };
-//
-//   fetchData(url).catch((e) => console.error(e));
-//
-//   useEffect(() => {
-//     if (jokes === null) {
-//       console.log("I do not do anything!");
-//     }
-//   }, [jokes]);
-//   return <div></div>;
-// };
-//
-// export default Jokes;
+import React, { useEffect, useState } from 'react';
+import JokeDemonstration from '../../components/JokeDemonstration/JokeDemonstration.tsx';
+import { Simulate } from 'react-dom/test-utils';
+import error = Simulate.error;
+
+const Joke = () => {
+  const [joke, setJoke] = useState<string | null>(null);
+
+  const url = 'https://api.chucknorris.io/jokes/random';
+
+  const fetchJoke = async () => {
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        console.error('Error fetching jokes:', error);
+      }
+
+      const data = await response.json();
+      setJoke(data.value);
+
+    } catch (error) {
+      console.error('Error fetching joke:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchJoke();
+  }, []);
+
+  return (
+    <div className="container mt-4">
+      <h1>Chuck Norris Jokes</h1>
+      <JokeDemonstration joke={joke}/>
+
+      <button className="btn btn-primary mt-3" onClick={fetchJoke}>
+        Receive another joke
+      </button>
+    </div>
+  );
+};
+
+export default Joke;
