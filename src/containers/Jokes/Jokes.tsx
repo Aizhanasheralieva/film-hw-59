@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import JokeDemonstration from '../../components/JokeDemonstration/JokeDemonstration.tsx';
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
+
 
 const Joke = () => {
   const [joke, setJoke] = useState<string | null>(null);
@@ -13,7 +12,8 @@ const Joke = () => {
       const response = await fetch(url);
 
       if (!response.ok) {
-        console.error('Error fetching jokes:', error);
+        console.error('Error fetching jokes:', response.statusText);
+        return;
       }
 
       const data = await response.json();

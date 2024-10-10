@@ -51,7 +51,7 @@ const Films = () => {
           ))
         ) : (
           <p>
-            <i>Any films in the list yet!</i>
+            Any films in the list yet!
           </p>
         )}
       </div>

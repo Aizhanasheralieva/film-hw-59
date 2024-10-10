@@ -8,8 +8,7 @@ const App = () => {
   return (
     <>
       <Toolbar />
-      <Films />
-      <button className="ms-2 border-2" onClick={() => setPage(!page)}>Change exercise</button>
+      <button className="ms-2 mb-4 border-2" onClick={() => setPage(!page)}>Switch to another exercise</button>
       {page ? <Films /> : <Jokes />}
     </>
   );
